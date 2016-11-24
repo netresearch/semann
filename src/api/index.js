@@ -1,1 +1,1 @@
-console.log('Wello horld')
+document.write('Wello horl')

@@ -1,26 +1,15 @@
 var path = require('path')
-var config = require('../../index')
 var utils = require('../utils')
 var webpack = require('webpack')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./base')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
-var webpackConfig = merge(baseWebpackConfig, {
-    devtool: config.sourceMaps.js ? '#source-map' : false,
+module.exports = {
     output: {
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
     },
     plugins: [
-        // http://vuejs.github.io/vue-loader/en/workflow/production.html
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
         // extract css into its own file
         new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
         // generate dist index.html with correct asset hash for caching.
@@ -61,20 +50,4 @@ var webpackConfig = merge(baseWebpackConfig, {
             chunks: ['vendor']
         })
     ]
-})
-
-if (config.gzip) {
-    var CompressionWebpackPlugin = require('compression-webpack-plugin')
-
-    webpackConfig.plugins.push(
-        new CompressionWebpackPlugin({
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
-            test: new RegExp( '\\.(' + config.gzip.join('|') + ')$' ),
-            threshold: 10240,
-            minRatio: 0.8
-        })
-    )
 }
-
-module.exports = webpackConfig

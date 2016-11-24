@@ -4,10 +4,10 @@ module.exports = {
     plugins: [
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
-            filename: 'app.html',
-            template: 'app.html',
+            filename: 'index.html',
+            template: 'index.html',
             inject: true,
-            chunks: ['app']
+            chunks: ['api']
         })
     ]
 }

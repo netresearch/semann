@@ -11,8 +11,8 @@ var app = express()
 app.configureWebpackMiddleware = function (webpackConfig) {
     var compiler = webpack(webpackConfig)
 
-    var devMiddleware = require('webpack-dev-middleware')(compiler, {
-        publicPath: webpackConfig.output.publicPath,
+    var devMiddleware = require('webpack-middleware')(compiler, {
+        publicPath: '/',
         stats: {
             colors: true,
             chunks: false
@@ -52,7 +52,7 @@ Object.keys(config.server.proxyTable).forEach(function (context) {
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 
-app.configureWebpackMiddleware(require('./config/webpack/app'));
+app.configureWebpackMiddleware(require('./config/webpack'));
 
 module.exports = app.listen(config.server.port, function (err) {
     if (err) {
