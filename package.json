@@ -1,7 +1,7 @@
 {
-  "name": "semanot",
+  "name": "semrich",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Web application and framework to enrich or annotate unstructured texts with background knowledge",
   "author": "Christian Opitz <christian.opitz@netresearch.de>",
   "private": true,
   "scripts": {
@@ -13,6 +13,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "css-element-queries": "^0.3.2",
+    "extend": "^3.0.0",
+    "node-sass": "^3.13.0",
+    "sass-loader": "^4.0.2",
     "vue": "^2.0.1",
     "webpack-middleware": "^1.5.1"
   },
