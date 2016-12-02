@@ -33,7 +33,7 @@ module.exports = {
     // npm install --save-dev compression-webpack-plugin
     gzip: false, // gzip: ['js', 'css'],
     server: {
-        port: 666,
+        port: process.env.DEV_PORT || 666,
         proxyTable: {}
     }
 }
