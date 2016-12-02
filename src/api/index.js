@@ -5,6 +5,7 @@ var distUrl = (function() {
 var extend = require('extend')
 
 import App from './app'
+import EventEmitter from '../shared/event'
 
 class Semann {
     constructor(options) {
@@ -20,7 +21,21 @@ class Semann {
     }
 
     enhance(text) {
-        console.log(text)
+        var emitter = new EventEmitter()
+        var enhanceId
+        this.app.on('enhancement-done', (enhancedId, results) => {
+            if (enhanceId === enhancedId) {
+                emitter.trigger('enhancement-done', results)
+            }
+        })
+        this.app.enhance(text).then(newEnhanceId => {
+            enhanceId = newEnhanceId
+        })
+        return {
+            done: (handler) => {
+                emitter.on('enhancement-done', handler)
+            }
+        }
     }
 }
 

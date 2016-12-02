@@ -58,15 +58,15 @@ export default class Messaging {
      * Call a method on another messaging server
      *
      * @param method
-     * @returns {{callbacks: Array}}
+     * @returns Promise
      */
     call(method) {
         var args = Array.prototype.slice.call(arguments, 1)
         var id = uid()
-        var handler = this._createHandler()
-        this._handlers[id] = handler
-        this.window.postMessage({id: id, method: method, arguments: args}, this.origin)
-        return handler
+        return new Promise(resolve => {
+            this._handlers[id] = resolve
+            this.window.postMessage({id: id, method: method, arguments: args}, this.origin)
+        })
     }
 
     /**
@@ -79,11 +79,7 @@ export default class Messaging {
     _handle(message) {
         if (message.method === 'resolve') {
             if (this._handlers[message.id]) {
-                var handler = this._handlers[message.id]
-                for (var i = 0, l = handler.callbacks.length; i < l; i++) {
-                    handler.callbacks[i](message.result)
-                }
-                handler._result = message.result
+                this._handlers[message.id](message.result)
                 delete this._handlers[message.id]
             }
         } else {

@@ -12,27 +12,70 @@
               href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
               integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
               crossorigin="anonymous">
+
+        <style type="text/css">
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+            #page {
+                position: absolute;
+                left:0;
+                top:0;
+                bottom: 0;
+                right: 300px;
+                overflow: auto;
+            }
+            #semannContainer {
+                position: absolute;
+                right:0;
+                top:0;
+                bottom: 0;
+                width: 300px;
+                max-width: 100%;
+                border-left: 1px solid #eee;
+            }
+        </style>
     </head>
     <body>
-        <div class="container">
-            <h3 class="text-muted">Semann API Examples</h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-8">
-                    <p id="semannText">The Hitchhiker's Guide to the Galaxy is a science fiction comedy series created by Douglas Adams. Originally a radio comedy broadcast on BBC Radio 4 in 1978, it was later adapted to other formats, and over several years it gradually became an international multi-media phenomenon. Adaptations have included stage shows, a "trilogy" of five books published between 1979 and 1992, a sixth novel penned by Eoin Colfer in 2009, a 1981 TV series, a 1984 computer game, and three series of three-part comic book adaptations of the first three novels published by DC Comics between 1993 and 1996. There were also two series of towels, produced by Beer-Davies, that are considered by some fans to be an "official version" of The Hitchhiker's Guide to the Galaxy, as they include text from the first novel. A Hollywood-funded film version, produced and filmed in the UK, was released in April 2005, and radio adaptations of the third, fourth, and fifth novels were broadcast from 2004 to 2005.</p>
-                </div>
-                <div class="col-md-4" id="semannContainer">
-                </div>
+        <div id="page">
+            <div class="container-fluid">
+                <h3 class="text-muted">Semann API Examples</h3>
+                <hr>
+                <p id="semannText">The Hitchhiker's Guide to the Galaxy is a science fiction comedy series created by Douglas Adams. Originally a radio comedy broadcast on BBC Radio 4 in 1978, it was later adapted to other formats, and over several years it gradually became an international multi-media phenomenon. Adaptations have included stage shows, a "trilogy" of five books published between 1979 and 1992, a sixth novel penned by Eoin Colfer in 2009, a 1981 TV series, a 1984 computer game, and three series of three-part comic book adaptations of the first three novels published by DC Comics between 1993 and 1996. There were also two series of towels, produced by Beer-Davies, that are considered by some fans to be an "official version" of The Hitchhiker's Guide to the Galaxy, as they include text from the first novel. A Hollywood-funded film version, produced and filmed in the UK, was released in April 2005, and radio adaptations of the third, fourth, and fifth novels were broadcast from 2004 to 2005.</p>
             </div>
+        </div>
+        <div id="semannContainer">
         </div>
         <!-- built files will be auto injected -->
         <script>
             var semann = new Semann(
                 {
-                    target: document.querySelector('#semannContainer')
+                    target: document.querySelector('#semannContainer'),
+                    app: {
+                        config: {
+                            theme: {
+                                //primary: 'blue'
+                            },
+                            connectors: {
+                                dummy: {
+                                    adapter: 'dummy'
+                                },
+                                dummy2: {
+                                    adapter: 'dummy'
+                                }
+                            }
+                        }
+                    }
                 }
             )
-            semann.enhance(document.querySelector('#semannText').innerText);
+            var enhancement = semann.enhance(document.querySelector('#semannText').innerText)
+            enhancement.done(
+                function (result) {
+                    console.log('ENHANCED', result)
+                }
+            )
         </script>
     </body>
 </html>

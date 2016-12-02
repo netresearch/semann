@@ -13,11 +13,13 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "css-element-queries": "^0.3.2",
+    "events": "^1.1.1",
     "extend": "^3.0.0",
     "node-sass": "^3.13.0",
     "sass-loader": "^4.0.2",
     "vue": "^2.0.1",
+    "vue-i18n": "^4.7.4",
+    "vue-material": "^0.3.3",
     "webpack-middleware": "^1.5.1"
   },
   "devDependencies": {
