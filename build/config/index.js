@@ -34,6 +34,7 @@ module.exports = {
     gzip: false, // gzip: ['js', 'css'],
     server: {
         port: process.env.DEV_PORT || 666,
+        url: process.env.DEV_URL || 'http://localhost',
         proxyTable: {}
     }
 }
