@@ -73,3 +73,5 @@ jspm_packages
 .directory
 .Trash-*
 .nfs*
+docs/
+!docs/index.html

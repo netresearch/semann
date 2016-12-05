@@ -1,0 +1,20 @@
+{
+    "default": [
+        "availabletasks"
+    ],
+    "all": [
+        "esdoc"
+    ],
+    "dev": [
+        "esdoc"
+    ],
+    "prod": [
+        "esdoc"
+    ],
+    "release": [
+        "esdoc"
+    ],
+    "test": [
+        "esdoc"
+    ]
+}
