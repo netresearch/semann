@@ -11,7 +11,7 @@
  * @license  GNU General Public License
  * @link     https://www.gnu.org/licenses/gpl.html
  */
-'use strict';
+'use strict'
 
 module.exports = {
 
@@ -46,4 +46,4 @@ module.exports = {
         }
     }
 
-};
+}

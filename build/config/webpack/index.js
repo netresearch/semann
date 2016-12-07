@@ -9,7 +9,7 @@ if (config.is.development) {
         require('./app')
     )
     // add hot-reload related code to entry chunks
-    Object.keys(webpackConfig.entry).forEach(function (name) {
+    Object.keys(webpackConfig.entry).forEach(function(name) {
         webpackConfig.entry[name] = ['./build/dev-client'].concat(webpackConfig.entry[name])
     })
     utils.addCompression(webpackConfig)
@@ -18,5 +18,5 @@ if (config.is.development) {
     module.exports = [
         utils.addCompression(merge(require('./base'), require('./api'))),
         utils.addCompression(merge(require('./base'), require('./app')))
-    ];
+    ]
 }

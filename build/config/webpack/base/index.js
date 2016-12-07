@@ -20,7 +20,7 @@ module.exports = merge(
         plugins: [
             new webpack.DefinePlugin({
                 'process.env': config.env
-            }),
+            })
         ],
         module: {
             preLoaders: [

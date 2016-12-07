@@ -15,12 +15,14 @@
 
 module.exports = {
 
-    tasks: {
-        options: {
-            groups: {
-                'Development': ['dev', 'test', 'availabletasks', 'default'],
-                'Production': ['prod', 'all']
-            }
-        }
-    }
+    options: {
+        configFile: '.eslintrc.js'
+    },
+
+    // eslint
+    target: [
+        'src/**/*.js',
+        'build/**/*.js'
+    ]
+
 }

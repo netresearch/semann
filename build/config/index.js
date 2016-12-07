@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-var env = process.env.NODE_ENV || 'production';
+var env = process.env.NODE_ENV || 'production'
 var is = {
     development: env === 'development',
     production: env === 'production',
