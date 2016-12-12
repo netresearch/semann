@@ -2,12 +2,13 @@
     <md-list-item>
         <md-checkbox v-model="settings.active">{{config.title || id}}</md-checkbox>
         <md-list-expand v-if="$options.settings && settings.active">
-            <settings-form v-model="settings" :config="$options.settings"></settings-form>
+            <settings-form v-model="settings"
+                           :config="$options.settings"></settings-form>
         </md-list-expand>
     </md-list-item>
 </template>
 
-<script>
+<script type="application/ecmascript">
     import Form from '../components/Form.vue'
 
     export default {

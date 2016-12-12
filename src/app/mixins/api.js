@@ -7,16 +7,16 @@ import Messaging from '../../shared/messaging'
  * @license  MIT License
  * @link     https://opensource.org/licenses/MIT
  */
-var messaging = new Messaging('*', window.parent)
+let messaging = new Messaging('*', window.parent)
 
-var call = function(method, args) {
+let call = function(method, args) {
     return messaging.call.apply(
         messaging,
         ['api.' + method].concat(args ? Array.prototype.slice.call(args, 0) : [])
     )
 }
 
-var api = {
+let api = {
     getConfig() { return call('getConfig') },
     dispatch(event) { return call('dispatch', arguments) },
     registerServer(name, object) {
@@ -26,9 +26,7 @@ var api = {
 }
 
 module.exports = {
-    beforeCreate() {
-        this.api = api
-    },
+    beforeCreate() { this.api = api },
     init(callback) {
         messaging.call('api.getOrigin').then(result => {
             delete module.exports.init

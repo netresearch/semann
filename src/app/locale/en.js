@@ -7,5 +7,6 @@
  */
 module.exports = {
     settings: 'Settings',
+    others: 'Others',
     connector: 'connector | connectors'
 }

@@ -1,6 +1,6 @@
 <script type="application/ecmascript">
     /**
-     * Dummy adapter
+     * Mummy adapter
      *
      * @author   Christian Opitz <christian.optiz@netresearch.de>
      * @license  MIT License
@@ -14,12 +14,12 @@
         settings: {
             replace: {
                 type: 'textarea',
-                value: 'science, comedy, radio, formats, adams'
+                value: 'April, Guide, novel, Mummy'
             }
         },
         locales: {
             en: {
-                replace: 'List of words to find'
+                replace: 'List of mummies'
             },
             de: {
                 replace: 'Liste zu ersetzender Worte'

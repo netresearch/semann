@@ -11,5 +11,5 @@ module.exports = {
         primary: 'blue',
         accent: 'indigo'
     },
-    language: 'auto'
+    language: 'de'
 }

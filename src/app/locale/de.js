@@ -7,5 +7,6 @@
  */
 module.exports = {
     settings: 'Einstellungen',
+    others: 'Anderes',
     connector: 'Konnektor | Konnektoren'
 }
