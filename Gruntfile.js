@@ -8,15 +8,14 @@
  * @category JavaScript
  * @package  Netresearch\LEDS\Grunt
  * @author   André Lademann <andre.lademann@netresearch.de>
- * @license  GNU General Public License
- * @link     https://www.gnu.org/licenses/gpl.html
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
  */
-
 module.exports = function(grunt) {
-    'use strict';
-    var path = require('path');
+    'use strict'
+    let path = require('path')
 
-    require('time-grunt')(grunt);
+    require('time-grunt')(grunt)
     require('load-grunt-config')(grunt, {
         configPath: path.join(process.cwd(), 'build/config/grunt'),
         init: true,
@@ -29,6 +28,5 @@ module.exports = function(grunt) {
         data: {
             path: path
         }
-    });
-
-};
+    })
+}

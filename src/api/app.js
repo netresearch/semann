@@ -3,8 +3,14 @@ import EventEmitter from '../shared/event'
 
 /**
  * postMessage API for the app
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ * @version  0.0.1
  */
 class AppApi {
+
     /**
      * Construct
      *
@@ -21,6 +27,7 @@ class AppApi {
      * calls)
      *
      * @returns string
+     * @public
      */
     getOrigin() {
         return this.app.options.origin || document.location.origin
@@ -29,6 +36,7 @@ class AppApi {
     /**
      * Get the config for the app
      *
+     * @public
      * @returns {*} Configuration object
      */
     getConfig() {
@@ -38,6 +46,7 @@ class AppApi {
     /**
      * Dispatch an event
      *
+     * @public
      * @param event
      */
     dispatch(event) {

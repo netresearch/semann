@@ -3,13 +3,18 @@ import EventEmitter from '../shared/event'
 
 /**
  * Application initialisation
- */
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ * @version  0.0.1
+ * */
 class Semann {
 
     /**
-     * Constructor
+     * Semann constructor
      *
-     * @param {*} options Configuration object
+     * @param {*} [options] - Configuration object
      */
     constructor(options) {
         let extend = require('extend')
@@ -32,7 +37,7 @@ class Semann {
     /**
      * Enhance the content
      *
-     * @param text
+     * @param {string} text - Text to enhance
      * @return {{done: (function(*=))}}
      */
     enhance(text) {

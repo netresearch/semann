@@ -49,7 +49,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-logs
 *.log
 npm-debug.log*
 pids
@@ -57,7 +56,6 @@ pids
 *.seed
 *.pid.lock
 lib-cov
-coverage
 .nyc_output
 .grunt
 .lock-wscript
@@ -75,3 +73,7 @@ jspm_packages
 .nfs*
 docs/
 !docs/index.html
+!docs/*.md
+!docs/api/badge.svg
+!docs/app/badge.svg
+!docs/shared/badge.svg

@@ -1,6 +1,15 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 
+/**
+ * Theme initialisation
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ * @version  0.0.1
+ */
+
 var components = [
     'core',
     'toolbar',

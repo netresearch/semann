@@ -3,10 +3,12 @@
         "availabletasks"
     ],
     "all": [
-        "esdoc"
+        "esdoc",
+        "eslint"
     ],
     "dev": [
-        "esdoc"
+        "esdoc",
+        "eslint"
     ],
     "prod": [
         "esdoc"
@@ -15,6 +17,7 @@
         "esdoc"
     ],
     "test": [
-        "esdoc"
+        "esdoc",
+        "eslint"
     ]
 }

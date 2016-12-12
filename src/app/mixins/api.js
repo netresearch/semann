@@ -1,5 +1,12 @@
 import Messaging from '../../shared/messaging'
 
+/**
+ * Api initialisation
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ */
 var messaging = new Messaging('*', window.parent)
 
 var call = function(method, args) {
@@ -8,6 +15,7 @@ var call = function(method, args) {
         ['api.' + method].concat(args ? Array.prototype.slice.call(args, 0) : [])
     )
 }
+
 var api = {
     getConfig() { return call('getConfig') },
     dispatch(event) { return call('dispatch', arguments) },

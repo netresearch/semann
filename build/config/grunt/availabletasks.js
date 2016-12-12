@@ -8,8 +8,8 @@
  * @category JavaScript
  * @package  Netresearch\LEDS\Grunt
  * @author   André Lademann <andre.lademann@netresearch.de>
- * @license  GNU General Public License
- * @link     https://www.gnu.org/licenses/gpl.html
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
  */
 'use strict'
 
