@@ -10,7 +10,7 @@ import VueMaterial from 'vue-material'
  * @version  0.0.1
  */
 
-var components = [
+let components = [
     'core',
     'toolbar',
     'sidenav',

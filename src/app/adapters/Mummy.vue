@@ -14,7 +14,7 @@
         settings: {
             replace: {
                 type: 'textarea',
-                value: 'April, Guide, novel, Mummy'
+                value: 'april, guide, novel'
             }
         },
         locales: {
@@ -47,11 +47,11 @@
                 let text = enhancement.text.toLowerCase()
                 this.settings.replace
                     .toLowerCase()
-                    .replace(/\s*,\s*/, ',')
+                    .replace(/\s*,\s*/g, ',')
                     .split(',')
                     .forEach((keyword, i) => {
                         let pos = text.indexOf(keyword)
-                        if (pos > 0) {
+                        if (pos >= 0) {
                             this.handler.add(
                                 {
                                     id: [this.id, keyword, i].join('-'),

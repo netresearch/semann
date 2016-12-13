@@ -25,6 +25,7 @@
                 type: Object
             }
         },
+
         data() {
             var settings = {
                 active: true
@@ -44,10 +45,12 @@
                 settings
             }
         },
+
         watch: {
             settings: {
                 deep: true,
                 handler(settings) {
+                    // @todo Settings should be stored/restored in/from LocalStorage
                     console.log('Settings should be stored/restored in/from LocalStorage', settings)
                 }
             }
