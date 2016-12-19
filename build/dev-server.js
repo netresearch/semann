@@ -1,14 +1,13 @@
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 require('./check-versions')()
 var config = require('./config')
-var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var opn = require('opn')
 
 var app = express()
-app.configureWebpackMiddleware = function (webpackConfig) {
+app.configureWebpackMiddleware = function(webpackConfig) {
     var compiler = webpack(webpackConfig)
 
     var devMiddleware = require('webpack-middleware')(compiler, {
@@ -22,8 +21,8 @@ app.configureWebpackMiddleware = function (webpackConfig) {
     var hotMiddleware = require('webpack-hot-middleware')(compiler)
 
     // force page reload when html-webpack-plugin template changes
-    compiler.plugin('compilation', function (compilation) {
-        compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    compiler.plugin('compilation', function(compilation) {
+        compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
             hotMiddleware.publish({action: 'reload'})
             cb()
         })
@@ -41,7 +40,7 @@ app.configureWebpackMiddleware = function (webpackConfig) {
 // https://github.com/chimurai/http-proxy-middleware
 // proxy api requests
 var proxyMiddleware = require('http-proxy-middleware')
-Object.keys(config.server.proxyTable).forEach(function (context) {
+Object.keys(config.server.proxyTable).forEach(function(context) {
     var options = config.server.proxyTable[context]
     if (typeof options === 'string') {
         options = {target: options}
@@ -52,14 +51,14 @@ Object.keys(config.server.proxyTable).forEach(function (context) {
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
 
-app.configureWebpackMiddleware(require('./config/webpack'));
+app.configureWebpackMiddleware(require('./config/webpack'))
 
-module.exports = app.listen(config.server.port, function (err) {
+module.exports = app.listen(config.server.port, function(err) {
     if (err) {
         console.log(err)
         return
     }
-    var uri = 'http://localhost:' + config.server.port
+    var uri = config.server.url + ':' + config.server.port
     console.log('Listening at ' + uri + '\n')
 
     // when env is testing, don't need open it

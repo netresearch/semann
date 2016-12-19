@@ -1,7 +1,16 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 
-var components = [
+/**
+ * Theme initialisation
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ * @version  0.0.1
+ */
+
+let components = [
     'core',
     'toolbar',
     'sidenav',

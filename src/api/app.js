@@ -3,12 +3,18 @@ import EventEmitter from '../shared/event'
 
 /**
  * postMessage API for the app
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ * @version  0.0.1
  */
 class AppApi {
+
     /**
      * Construct
      *
-     * @param options
+     * @param {*} app Application object
      */
     constructor(app) {
         this.app = app
@@ -21,6 +27,7 @@ class AppApi {
      * calls)
      *
      * @returns string
+     * @public
      */
     getOrigin() {
         return this.app.options.origin || document.location.origin
@@ -29,7 +36,8 @@ class AppApi {
     /**
      * Get the config for the app
      *
-     * @returns {*}
+     * @public
+     * @returns {*} Configuration object
      */
     getConfig() {
         return this.app.options.config
@@ -38,6 +46,7 @@ class AppApi {
     /**
      * Dispatch an event
      *
+     * @public
      * @param event
      */
     dispatch(event) {
@@ -45,6 +54,15 @@ class AppApi {
     }
 }
 
+/**
+ * Add promise
+ *
+ * @param {*} app
+ * @param fn
+ * @param args
+ * @return {Promise}
+ * @private
+ */
 function _call(app, fn, args) {
     return new Promise((resolve, reject) => {
         app.on('app-registered', () => {
@@ -69,7 +87,7 @@ export default class App extends EventEmitter {
         this.options = options
 
         this.iframe = this.options.target.appendChild(document.createElement('iframe'))
-        var matches = this.options.src.match(/^https?:\/\/[^/]+/)
+        let matches = this.options.src.match(/^https?:\/\/[^/]+/)
         this.messaging = new Messaging(matches ? matches[0] : document.location.origin, this.iframe.contentWindow)
         this.messaging.registerServer('api', new AppApi(this))
         this.iframe.setAttribute('src', this.options.src)
@@ -79,6 +97,12 @@ export default class App extends EventEmitter {
         this.iframe.style.height = this.options.height || '100%'
     }
 
+    /**
+     * Enhance text
+     *
+     * @param text
+     * @return {Promise}
+     */
     enhance(text) {
         return _call(this, 'app.enhance', arguments)
     }

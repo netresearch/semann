@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-var env = process.env.NODE_ENV || 'production';
+var env = process.env.NODE_ENV || 'production'
 var is = {
     development: env === 'development',
     production: env === 'production',
@@ -33,7 +33,8 @@ module.exports = {
     // npm install --save-dev compression-webpack-plugin
     gzip: false, // gzip: ['js', 'css'],
     server: {
-        port: 666,
+        port: process.env.DEV_PORT || 666,
+        url: process.env.DEV_URL || 'http://localhost',
         proxyTable: {}
     }
 }

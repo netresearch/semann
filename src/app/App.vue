@@ -10,21 +10,26 @@
             <md-toolbar class="md-dense md-accent">
                 <div class="md-toolbar-container">
                     <h3 class="md-title" style="flex: 1">{{$t('settings')}}</h3>
-                    <md-button class="md-icon-button" @click="$refs.sidenav.toggle()">
+                    <md-button class="md-icon-button"
+                               @click="$refs.sidenav.toggle()">
                         <md-icon>chevron_right</md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
             <md-tabs class="md-transparent">
-                <md-tab :md-label="$tc('connector', Object.keys(config.connectors).length)">
+                <md-tab
+                    :md-label="$tc('connector', Object.keys(config.connectors).length)">
                     <md-list>
-                        <template v-for="(connectorConfig, connectorId) in config.connectors">
-                            <component :is="'adapter-' + connectorConfig.adapter" :config="connectorConfig" :id="connectorId" :enhancement="enhancement"></component>
+                        <template
+                            v-for="(connectorConfig, connectorId) in config.connectors">
+                            <component :is="'adapter-' + connectorConfig.adapter"
+                                       :config="connectorConfig"
+                                       :id="connectorId"
+                                       :enhancement="enhancement"></component>
                         </template>
                     </md-list>
                 </md-tab>
-                <md-tab md-label="Others">
-                </md-tab>
+                <md-tab :md-label="$tc('others')"></md-tab>
             </md-tabs>
         </md-sidenav>
         <md-list v-if="enhancement">
@@ -42,74 +47,101 @@
     </div>
 </template>
 
-<script>
-import Config from './config'
-import Vue from 'vue'
+<script type="application/ecmascript">
+    import Config from './config'
+    import Vue from 'vue'
 
-export default {
-    name: 'app',
-    mixins: [require('./mixins/api')],
-    data: function() {
-        return {
-            config: Config,
-            enhancement: undefined
-        }
-    },
-    created() {
-        this.api.registerServer('app', {
-            enhance: (text) => {
-                if (!this.enhancement || this.enhancement.text !== text) {
-                    var newId = this.enhancement ? this.enhancement.id + 1 : 1
-                    this.enhancement = {
-                        text,
-                        id: newId,
-                        queue: [],
-                        results: {},
-                        handle: function(id) {
-                            this.enhancement.queue.push(id)
-                            return {
-                                add: (entity) => {
-                                    if (!this.enhancement.results.hasOwnProperty(entity.id)) {
-                                        Vue.set(this.enhancement.results, entity.id, [])
-                                    }
-                                    this.enhancement.results[entity.id].push({source: id, entity: entity})
-                                    this.api.dispatch('enhancement-entity-add', this.enhancement.id, entity)
-                                },
-                                clear: () => {
-                                    var results = {}
-                                    Object.keys(this.enhancement.results).forEach(entityId => {
-                                        var entities = []
-                                        this.enhancement.results[entityId].forEach(entity => {
-                                            if (entity.source !== id) {
-                                                entities.push(entity)
-                                            } else {
-                                                this.api.dispatch('enhancement-entity-remove', this.enhancement.id, entity)
+    export default {
+        name: 'app',
+        mixins: [require('./mixins/api')],
+        data: function () {
+            return {
+                config: Config,
+                enhancement: undefined
+            }
+        },
+        created() {
+            this.api.registerServer('app', {
+
+                /**
+                 * Enhance content
+                 * @property {string} text - Text to enhance
+                 * */
+                enhance: (text) => {
+                    if (!this.enhancement || this.enhancement.text !== text) {
+                        let newId = this.enhancement ? this.enhancement.id + 1 : 1
+                        this.enhancement = {
+                            text,
+                            id: newId,
+                            queue: [],
+                            results: {},
+
+                            /**
+                             *
+                             */
+                            handle: function (id) {
+                                this.enhancement.queue.push(id)
+                                return {
+                                    /**
+                                     * Add enhancement on position
+                                     *
+                                     * @property {*} entity
+                                     * @return void
+                                     */
+                                    add: (entity) => {
+                                        if (!this.enhancement.results.hasOwnProperty(entity.id)) {
+                                            Vue.set(this.enhancement.results, entity.id, [])
+                                        }
+                                        this.enhancement.results[entity.id].push({
+                                            source: id,
+                                            entity: entity
+                                        })
+                                        this.api.dispatch('enhancement-entity-add', this.enhancement.id, entity)
+                                    },
+
+                                    /**
+                                     * Clear all enhancements
+                                     */
+                                    clear: () => {
+                                        let results = {}
+                                        Object.keys(this.enhancement.results).forEach(entityId => {
+                                            let entities = []
+                                            this.enhancement.results[entityId].forEach(entity => {
+                                                if (entity.source !== id) {
+                                                    entities.push(entity)
+                                                } else {
+                                                    this.api.dispatch('enhancement-entity-remove', this.enhancement.id, entity)
+                                                }
+                                            })
+                                            if (entities.length) {
+                                                results[entityId] = entities
                                             }
                                         })
-                                        if (entities.length) {
-                                            results[entityId] = entities
-                                        }
-                                    })
-                                    this.enhancement.results = results
-                                },
-                                done: () => {
-                                    this.enhancement.queue = this.enhancement.queue.filter(value => {
-                                        return value !== id
-                                    })
-                                    this.api.dispatch('enhancement-done', this.enhancement.id, this.enhancement.results)
+                                        this.enhancement.results = results
+                                    },
+
+                                    /**
+                                     * Return enhancements
+                                     */
+                                    done: () => {
+                                        this.enhancement.queue = this.enhancement.queue.filter(value => {
+                                            return value !== id
+                                        })
+                                        this.api.dispatch('enhancement-done', this.enhancement.id, this.enhancement.results)
+                                    }
                                 }
-                            }
-                        }.bind(this)
+                            }.bind(this)
+                        }
                     }
+                    return this.enhancement.id
                 }
-                return this.enhancement.id
-            }
-        })
-    },
-    components: {
-        'adapter-dummy': require('./adapters/Dummy.vue')
+            })
+        },
+        components: {
+            'adapter-dummy': require('./adapters/Dummy.vue'),
+            'adapter-mummy': require('./adapters/Mummy.vue')
+        }
     }
-}
 
 </script>
 

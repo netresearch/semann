@@ -1,4 +1,6 @@
-# semanot
+# semann
+
+![alt text](docs/api/badge.svg "API documentation") ![alt text](docs/app/badge.svg "App documentation1") ![alt text](docs/shared/badge.svg "Shared scripts documentation")
 
 > A Vue.js project
 

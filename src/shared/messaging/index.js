@@ -1,11 +1,19 @@
 import uid from './uid'
 
+/**
+ * Messaging service
+ *
+ * @author   Christian Opitz <christian.optiz@netresearch.de>
+ * @license  MIT License
+ * @link     https://opensource.org/licenses/MIT
+ */
 export default class Messaging {
+
     /**
      * Constructor - add required listeners
      *
      * @param origin
-     * @param windowObject
+     * @param {window} windowObject
      */
     constructor(origin, windowObject) {
         var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent'
@@ -18,9 +26,22 @@ export default class Messaging {
             }
         }.bind(this), false)
 
+        /**
+         * @type {Object} origin
+         */
         this.origin = origin
+        /**
+         * @type {Object} window
+         */
         this.window = windowObject
+        /**
+         * @type {Object} Server
+         */
         this.servers = {}
+        /**
+         * @type {Object} handlers
+         * @private
+         */
         this._handlers = {}
     }
 
@@ -28,8 +49,9 @@ export default class Messaging {
      * Register an object which's methods and child objects methods can be called
      * from a messaging client
      *
-     * @param name
-     * @param object
+     * @param {string} name - Server name
+     * @param {*} object - Server object
+     * @public
      */
     registerServer(name, object) {
         this.servers[name] = object
@@ -39,10 +61,12 @@ export default class Messaging {
      * Creates a handler for the return of a method called on another messaging server
      *
      * @returns {{callbacks: Array}}
+     * @deprecated This method is unused
+     * @todo Check usage
      * @private
      */
     _createHandler() {
-        var handler = { callbacks: [] }
+        var handler = {callbacks: []}
         handler.then = function(callback) {
             if (handler.hasOwnProperty('_result')) {
                 callback(handler._result)
@@ -57,15 +81,20 @@ export default class Messaging {
     /**
      * Call a method on another messaging server
      *
-     * @param method
-     * @returns Promise
+     * @param {*} method
+     * @returns {Promise} Promise
+     * @public
      */
     call(method) {
         var args = Array.prototype.slice.call(arguments, 1)
         var id = uid()
         return new Promise(resolve => {
             this._handlers[id] = resolve
-            this.window.postMessage({id: id, method: method, arguments: args}, this.origin)
+            this.window.postMessage({
+                id: id,
+                method: method,
+                arguments: args
+            }, this.origin)
         })
     }
 
@@ -96,7 +125,11 @@ export default class Messaging {
             var resolve = function(res) {
                 // It might occure, that the id is reset, when the target frame is removed
                 if (message.id) {
-                    this.window.postMessage({method: 'resolve', id: message.id, result: res}, this.origin)
+                    this.window.postMessage({
+                        method: 'resolve',
+                        id: message.id,
+                        result: res
+                    }, this.origin)
                 }
             }.bind(this)
             if (typeof result === 'function') {
