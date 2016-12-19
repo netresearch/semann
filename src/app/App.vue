@@ -38,6 +38,7 @@
                 <md-list-expand>
                     <md-list>
                         <md-list-item v-for="entry in entities" class="md-inset">
+                            Title: {{entry.title}}<br>
                             Source: {{entry.source}}
                         </md-list-item>
                     </md-list>
@@ -92,8 +93,10 @@
                                         if (!this.enhancement.results.hasOwnProperty(entity.id)) {
                                             Vue.set(this.enhancement.results, entity.id, [])
                                         }
+                                        console.log('JO',this.enhancement.results[entity.id].title)
                                         this.enhancement.results[entity.id].push({
                                             source: id,
+                                            title: 'Sven',
                                             entity: entity
                                         })
                                         this.api.dispatch('enhancement-entity-add', this.enhancement.id, entity)

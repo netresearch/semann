@@ -55,7 +55,9 @@
                             this.handler.add(
                                 {
                                     id: [this.id, keyword, i].join('-'),
-                                    start: pos
+                                    title: keyword,
+                                    start: pos,
+                                    length: keyword.length
                                 }
                             )
                         }

@@ -26,7 +26,7 @@
             }
         },
         watch: {
-            'settings.replace': function (replace) {
+            'settings.replace': function () {
                 if (this.handler) {
                     this.handler.clear()
                     this.enhance(this.enhancement)
