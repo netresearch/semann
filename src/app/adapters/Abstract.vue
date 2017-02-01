@@ -3,7 +3,8 @@
         <md-checkbox v-model="settings.active">{{config.title || id}}</md-checkbox>
         <md-list-expand v-if="$options.settings && settings.active">
             <settings-form v-model="settings"
-                           :config="$options.settings"></settings-form>
+                           v-if="settingsOptions"
+                           :config="settingsOptions"></settings-form>
         </md-list-expand>
     </md-list-item>
 </template>
@@ -27,22 +28,33 @@
         },
 
         data() {
-            var settings = {
-                active: true
-            }
-            if (this.$options.settings) {
-                Object.keys(this.$options.settings).forEach(field => {
-                    if (field === 'active') {
-                        throw new Error('Field name active is reserved')
-                    }
-                    if (!this.$options.settings[field].hasOwnProperty('label')) {
-                        this.$options.settings[field].label = this.$t(field)
-                    }
-                    settings[field] = this.$options.settings[field].value
-                })
-            }
             return {
-                settings
+                settingsOptions: undefined,
+                settings: {
+                    'active': true
+                }
+            }
+        },
+
+        created() {
+            if (this.$options.settings) {
+                const takeOverSettings = (settingsOptions) => {
+                    this.settingsOptions = settingsOptions
+                    Object.keys(settingsOptions).forEach(field => {
+                        if (field === 'active') {
+                            throw new Error('Field name active is reserved')
+                        }
+                        if (!settingsOptions[field].hasOwnProperty('label')) {
+                            settingsOptions[field].label = this.$t(field)
+                        }
+                        this.$set(this.settings, field, settingsOptions[field].value)
+                    })
+                }
+                if (typeof this.$options.settings === 'function') {
+                    this.$options.settings.call(this).then(takeOverSettings)
+                } else {
+                    takeOverSettings(this.$options.settings)
+                }
             }
         },
 
@@ -51,7 +63,8 @@
                 deep: true,
                 handler(settings) {
                     // @todo Settings should be stored/restored in/from LocalStorage
-                    console.log('Settings should be stored/restored in/from LocalStorage', settings)
+                    // @link https://www.npmjs.com/package/vue-localstorage
+                    console.warn('Settings should be stored/restored in/from LocalStorage', settings)
                 }
             }
         },

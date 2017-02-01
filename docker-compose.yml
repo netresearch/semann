@@ -1,8 +1,8 @@
 version: '2'
 services:
     web:
-        #image: mxr576/stanbol
+        # image: mxr576/stanbol
         build: ./docker/stanbol
         container_name: stanbol
         ports:
-            - 8080:8080
+            - 9988:8080

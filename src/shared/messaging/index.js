@@ -1,3 +1,11 @@
+/**
+ * Messaging service
+ *
+ * @author  Christian Opitz <christian.optiz@netresearch.de>
+ * @license MIT License
+ * @link    https://opensource.org/licenses/MIT
+ * @version 0.0.1
+ */
 import uid from './uid'
 
 /**

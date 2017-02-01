@@ -32,15 +32,35 @@
                 <md-tab :md-label="$tc('others')"></md-tab>
             </md-tabs>
         </md-sidenav>
+
         <md-list v-if="enhancement">
             <md-list-item v-for="(entities, entityId) in enhancement.results">
-                <span>{{entityId}}</span>
+                <span class="md-list-text-container">{{entityId}}</span>
                 <md-list-expand>
-                    <md-list>
-                        <md-list-item v-for="entry in entities" class="md-inset">
-                            Title: {{entry.title}}<br>
-                            Source: {{entry.source}}
+                    <md-list v-for="entry in entities">
+
+                        <md-list-item>
+                            <md-avatar v-if="entities[0].entity.foaf">
+                                <img :src="entities[0].entity.foaf[0]"
+                                     :alt="entityId">
+                            </md-avatar>
+                            <div class="md-list-text-container">
+                                <p v-if="entities[0].entity.comment">
+                                    {{entities[0].entity.comment}}</p>
+                            </div>
+                            <md-divider class="md-inset"></md-divider>
                         </md-list-item>
+
+                        <md-list-item v-if="entities[0].entity.enhance">
+                            <div class="md-list-text-container"
+                                 v-if="entities[0].entity.enhance">
+                                <span>Enhance</span>
+                                <span>Start: {{entities[0].entity.enhance.start}} </span>
+                                <span>End: {{entities[0].entity.enhance.end </span>
+                            </div>
+                            <md-divider class="md-inset"></md-divider>
+                        </md-list-item>
+
                     </md-list>
                 </md-list-expand>
             </md-list-item>
@@ -78,7 +98,9 @@
                             results: {},
 
                             /**
-                             *
+                             * Handle
+                             * @property {int} id - Enhancement identifier
+                             * @return {*} Enhance method object
                              */
                             handle: function (id) {
                                 this.enhancement.queue.push(id)
@@ -93,13 +115,16 @@
                                         if (!this.enhancement.results.hasOwnProperty(entity.id)) {
                                             Vue.set(this.enhancement.results, entity.id, [])
                                         }
-                                        console.log('JO',this.enhancement.results[entity.id].title)
                                         this.enhancement.results[entity.id].push({
                                             source: id,
-                                            title: 'Sven',
+                                            title: 'Test title',
                                             entity: entity
                                         })
-                                        this.api.dispatch('enhancement-entity-add', this.enhancement.id, entity)
+                                        this.api.dispatch(
+                                            'enhancement-entity-add',
+                                            this.enhancement.id,
+                                            entity
+                                        )
                                     },
 
                                     /**
@@ -142,13 +167,16 @@
         },
         components: {
             'adapter-dummy': require('./adapters/Dummy.vue'),
-            'adapter-mummy': require('./adapters/Mummy.vue')
+            'adapter-stanbol': require('./adapters/Stanbol.vue')
         }
     }
-
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
+    body {
+        overflow-x: hidden;
+    }
+
     #app {
         > .md-sidenav > .md-sidenav-content {
             left: 0

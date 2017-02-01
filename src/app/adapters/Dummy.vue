@@ -14,7 +14,7 @@
         settings: {
             replace: {
                 type: 'textarea',
-                value: 'guide, science, comedy, radio, formats, adams'
+                value: 'guide, science'
             }
         },
         locales: {

@@ -1,3 +1,12 @@
+/**
+ * Vue View initialisation
+ *
+ * @author  Christian Opitz <christian.optiz@netresearch.de>
+ * @license MIT License
+ * @link    https://opensource.org/licenses/MIT
+ * @version 0.0.1
+ */
+
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 
@@ -12,14 +21,23 @@ import VueMaterial from 'vue-material'
 
 let components = [
     'core',
-    'toolbar',
-    'sidenav',
-    'icon',
+    'avatar',
     'button',
-    'list',
+    'buttonToggle',
     'checkbox',
+    'divider',
+    'icon',
+    'list',
     'inputContainer',
+    'menu',
+    'radio',
+    'select',
+    'sidenav',
+    'switch',
+    'table',
     'tabs',
+    'toolbar',
+    'tooltip',
     'whiteframe'
 ]
 

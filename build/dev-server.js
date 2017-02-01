@@ -1,16 +1,16 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 require('./check-versions')()
-var config = require('./config')
-var express = require('express')
-var webpack = require('webpack')
-var opn = require('opn')
+let config = require('./config')
+let express = require('express')
+let webpack = require('webpack')
+let opn = require('opn')
 
-var app = express()
+let app = express()
 app.configureWebpackMiddleware = function(webpackConfig) {
-    var compiler = webpack(webpackConfig)
+    let compiler = webpack(webpackConfig)
 
-    var devMiddleware = require('webpack-middleware')(compiler, {
+    let devMiddleware = require('webpack-middleware')(compiler, {
         publicPath: '/',
         stats: {
             colors: true,
@@ -18,7 +18,7 @@ app.configureWebpackMiddleware = function(webpackConfig) {
         }
     })
 
-    var hotMiddleware = require('webpack-hot-middleware')(compiler)
+    let hotMiddleware = require('webpack-hot-middleware')(compiler)
 
     // force page reload when html-webpack-plugin template changes
     compiler.plugin('compilation', function(compilation) {
@@ -39,9 +39,9 @@ app.configureWebpackMiddleware = function(webpackConfig) {
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
 // proxy api requests
-var proxyMiddleware = require('http-proxy-middleware')
+let proxyMiddleware = require('http-proxy-middleware')
 Object.keys(config.server.proxyTable).forEach(function(context) {
-    var options = config.server.proxyTable[context]
+    let options = config.server.proxyTable[context]
     if (typeof options === 'string') {
         options = {target: options}
     }
@@ -58,7 +58,7 @@ module.exports = app.listen(config.server.port, function(err) {
         console.log(err)
         return
     }
-    var uri = config.server.url + ':' + config.server.port
+    let uri = config.server.url + ':' + config.server.port
     console.log('Listening at ' + uri + '\n')
 
     // when env is testing, don't need open it

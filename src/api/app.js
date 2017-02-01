@@ -92,9 +92,11 @@ export default class App extends EventEmitter {
         this.messaging.registerServer('api', new AppApi(this))
         this.iframe.setAttribute('src', this.options.src)
         this.iframe.setAttribute('frameborder', 0)
-        this.iframe.setAttribute('scrolling', 'no')
+        this.iframe.setAttribute('scrolling', 'yes')
         this.iframe.style.width = this.options.width || '100%'
         this.iframe.style.height = this.options.height || '100%'
+        this.iframe.style.overflowY = 'scroll'
+        this.iframe.style.overflowX = 'hidden'
     }
 
     /**

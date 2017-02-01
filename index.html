@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Semann API Examples</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous">
+          crossorigin="anonymous" />
 
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-          crossorigin="anonymous">
-
-    <style type="text/css">
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
+    <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
+            overflow-y: hidden;
         }
 
         #page {
@@ -44,9 +47,9 @@
 <div id="page">
     <div class="container-fluid">
         <h3 class="text-muted">Semann API Examples</h3>
-        <hr>
+        <hr />
         <p id="semannText">
-            The Hitchhiker's Guide to the Galaxy is a science fiction
+            Ulo The Hitchhiker's Guide to the Galaxy is a science fiction
             comedy series created by Douglas Adams. Originally a radio comedy
             broadcast on BBC Radio 4 in 1978, it was later adapted to other formats,
             and over several years it gradually became an international multi-media
@@ -64,34 +67,51 @@
         </p>
     </div>
 </div>
-<div id="semannContainer">
-</div>
+<div id="semannContainer"></div>
 <!-- built files will be auto injected -->
 <script type="application/javascript">
-    var semann = new Semann(
-        {
-            target: document.querySelector('#semannContainer'),
-            app: {
-                config: {
-                    theme: {
-                        //primary: 'blue'
-                    },
-                    connectors: {
-                        dummy: {
-                            adapter: 'dummy'
+    var enhancement,
+        semann = new Semann(
+            {
+                target: document.querySelector('#semannContainer'),
+                app: {
+                    config: {
+                        theme: {
+                            primary: 'blue'
                         },
-                        mummy: {
-                            adapter: 'mummy'
+                        connectors: {
+                            dummy: {
+                                adapter: 'dummy',
+                                foo: 'bar',
+                                replace: 'dirk'
+                            },
+                            stanbol: {
+                                adapter: 'stanbol',
+                                url: 'http://sobol.nr:9988',
+                                features: {
+                                    targets: {
+                                        rdfa: 'Content enhancement with rdfa',
+                                        sidebar: 'Sidebar',
+                                        footer: 'Footer'
+                                    },
+                                    chain: [
+                                        'dbpedia-disambiguation',
+                                        'dbpedia-fst-linking',
+                                        'dbpedia-proper-noun',
+                                        'dbpedia-spotlight',
+                                        'language'
+                                    ]
+                                },
+                            }
                         }
                     }
                 }
             }
-        }
-    )
-    var enhancement = semann.enhance(document.querySelector('#semannText').innerText)
+        )
+    enhancement = semann.enhance(document.querySelector('#semannText').innerText)
     enhancement.done(
         function (result) {
-            console.log('ENHANCED', result)
+            // console.log('ENHANCED', result)
         }
     )
 </script>
