@@ -18,11 +18,13 @@
 
                     // Remove first element
                     response.body['@graph'].shift()
+
+                    // @todo Use settings for it
                     response.body['@graph'].forEach((data, i) => {
                         stanbolChains[data.label] = {
                             type: 'checkbox',
                             group: 'chain',
-                            value: false,
+                            value: data.label == 'dbpedia-disambiguation' ? true : false,
                             service: data.label
                         }
                     })
@@ -67,6 +69,7 @@
             },
             enhancement: function (enhancement) {
                 this.handler = enhancement.handle(this.id)
+                this.enhance(enhancement)
             }
         },
 
@@ -92,11 +95,11 @@
 
                         // DBpedia
                         if (keyword['@id'].substring(0, 19) === 'http://dbpedia.org/') {
-                            data.id = keyword['rdfs:label'][0]['@value']
+                            data.id = [this.id, i].join('-')
+                            data.title = keyword['rdfs:label'][0]['@value']
                             data.foaf = keyword['foaf:depiction']
                             data.comment = keyword['rdfs:comment']['@value']
                         }
-
                         // Transmit data to view
                         if (typeof data.id !== 'undefined') {
                             this.handler.add(data)
@@ -106,13 +109,12 @@
 
                     // Force update
                     this.$forceUpdate()
-
+                    this.handler.done()
                 }, (response) => {
                     console.warn(response)
                 })
 
             },
-
 
             /**
              * Enhance content
@@ -128,7 +130,6 @@
                     return this.handler.clear()
                 }
 
-                console.log(Object.keys(this.settings))
                 this.config.features.chain.forEach((keyword, i) => {
                     if (this.settings[keyword]) {
                         this.load(
@@ -137,8 +138,6 @@
                         )
                     }
                 })
-
-                this.handler.done()
             }
         }
     }

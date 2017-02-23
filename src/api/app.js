@@ -65,10 +65,16 @@ class AppApi {
  */
 function _call(app, fn, args) {
     return new Promise((resolve, reject) => {
-        app.on('app-registered', () => {
+        const doCall = () => {
+            _call.appLoaded = true
             args = [fn].concat(args ? Array.prototype.slice.call(args, 0) : [])
             app.messaging.call.apply(app.messaging, args).then(resolve, reject)
-        })
+        }
+        if (_call.appLoaded) {
+            doCall()
+        } else {
+            app.on('app-registered', doCall)
+        }
     })
 }
 

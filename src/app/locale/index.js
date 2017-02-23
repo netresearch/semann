@@ -22,7 +22,7 @@ if (lang === 'auto') {
 }
 
 if (locales.indexOf(lang) < 0) {
-    console.log('Semann is not yet translated into ' + lang + ' - feel free to contribute')
+    console.info('Semann is not yet translated into ' + lang + ' - feel free to contribute.')
     lang = 'en'
 }
 

@@ -35,7 +35,8 @@
 
         <md-list v-if="enhancement">
             <md-list-item v-for="(entities, entityId) in enhancement.results">
-                <span class="md-list-text-container">{{entityId}}</span>
+                <span
+                    class="md-list-text-container">{{entities[0].entity.title}}</span>
                 <md-list-expand>
                     <md-list v-for="entry in entities">
 
@@ -46,9 +47,9 @@
                             </md-avatar>
                             <div class="md-list-text-container">
                                 <p v-if="entities[0].entity.comment">
-                                    {{entities[0].entity.comment}}</p>
+                                    {{entities[0].entity.comment}}
+                                </p>
                             </div>
-                            <md-divider class="md-inset"></md-divider>
                         </md-list-item>
 
                         <md-list-item v-if="entities[0].entity.enhance">
@@ -61,6 +62,30 @@
                             <md-divider class="md-inset"></md-divider>
                         </md-list-item>
 
+                        <div class="md-list-text-container">
+                            <md-button-toggle>
+                                <md-button class="md-primary"
+                                           :id="entityId"
+                                           v-model="toggleFooter"
+                                           @click="toggleEntityFooter(entityId,entities[0].entity.title,entities[0].entity.foaf[0],entities[0].entity.comment)">
+                                    <md-icon>low_priority</md-icon>
+                                    <md-tooltip md-direction="top">Add to footer
+                                    </md-tooltip>
+                                </md-button>
+                                <md-button class="md-primary">
+                                    <md-icon>wrap_text</md-icon>
+                                    <md-tooltip md-direction="top">Add text to
+                                        editor
+                                    </md-tooltip>
+                                </md-button>
+                                <md-button class="md-primary">
+                                    <md-icon>insert_photo</md-icon>
+                                    <md-tooltip md-direction="top">Add image to
+                                        editor
+                                    </md-tooltip>
+                                </md-button>
+                            </md-button-toggle>
+                        </div>
                     </md-list>
                 </md-list-expand>
             </md-list-item>
@@ -78,10 +103,22 @@
         data: function () {
             return {
                 config: Config,
-                enhancement: undefined
+                enhancement: undefined,
+                toggleEntity: true
             }
         },
         created() {
+
+            /**
+             * Register frontend server to publish the results
+             * @todo
+             */
+            this.api.registerServer('frontend', {
+                update: (title, comment) => {
+                    this.api.dispatch('enhancement-update', arguments)
+                }
+            })
+
             this.api.registerServer('app', {
 
                 /**
@@ -117,7 +154,6 @@
                                         }
                                         this.enhancement.results[entity.id].push({
                                             source: id,
-                                            title: 'Test title',
                                             entity: entity
                                         })
                                         this.api.dispatch(
@@ -156,6 +192,17 @@
                                             return value !== id
                                         })
                                         this.api.dispatch('enhancement-done', this.enhancement.id, this.enhancement.results)
+                                    },
+
+                                    /**
+                                     * Update with enhancements
+                                     */
+                                    update: () => {
+                                        console.log('Update - App')
+                                        this.enhancement.queue = this.enhancement.queue.filter(value => {
+                                            return value !== id
+                                        })
+                                        this.api.dispatch('enhancement-update', this.enhancement.id, this.enhancement.results)
                                     }
                                 }
                             }.bind(this)
@@ -168,6 +215,36 @@
         components: {
             'adapter-dummy': require('./adapters/Dummy.vue'),
             'adapter-stanbol': require('./adapters/Stanbol.vue')
+        },
+
+        methods: {
+
+            /**
+             * Toggle enhancement menu buttons
+             *
+             * @param id
+             * @param title
+             * @param image
+             * @param comment
+             */
+            toggleEntityFooter: function (id, title, image, comment) {
+                // @todo Use events
+                /*
+                 this.api.registerServer('frontend', {
+                 update: this.api.dispatch('enhancement-update', arguments)
+                 })
+                 */
+                if (document.getElementById(id).getAttribute('class') === 'md-button md-primary') {
+                    window.parent.document.addFooter(id, title, image, comment)
+                } else {
+                    window.parent.document.removeFooter(id)
+                }
+
+            },
+
+            toggle: function (field) {
+                console.log(field)
+            }
         }
     }
 </script>

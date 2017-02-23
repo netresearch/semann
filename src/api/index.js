@@ -38,11 +38,11 @@ class Semann {
      * Enhance the content
      *
      * @param {string} text - Text to enhance
-     * @return {{done: (function(*=))}}
+     * @return {{done: (function(*=)), update: (function(*=))}}
      */
     enhance(text) {
-        var emitter = new EventEmitter()
-        var enhanceId
+        let emitter = new EventEmitter()
+        let enhanceId
         this.app.on('enhancement-done', (enhancedId, results) => {
             if (enhanceId === enhancedId) {
                 emitter.trigger('enhancement-done', results)
@@ -54,6 +54,10 @@ class Semann {
         return {
             done: (handler) => {
                 emitter.on('enhancement-done', handler)
+            },
+            update: (handler) => {
+                console.log('UPDATE !!!!!', handler)
+                emitter.on('enhancement-update', handler)
             }
         }
     }

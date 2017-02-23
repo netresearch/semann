@@ -5,9 +5,10 @@ let config = require('./config')
 let express = require('express')
 let webpack = require('webpack')
 let opn = require('opn')
+let path = require('path')
 
 let app = express()
-app.configureWebpackMiddleware = function(webpackConfig) {
+app.configureWebpackMiddleware = function (webpackConfig) {
     let compiler = webpack(webpackConfig)
 
     let devMiddleware = require('webpack-middleware')(compiler, {
@@ -21,8 +22,8 @@ app.configureWebpackMiddleware = function(webpackConfig) {
     let hotMiddleware = require('webpack-hot-middleware')(compiler)
 
     // force page reload when html-webpack-plugin template changes
-    compiler.plugin('compilation', function(compilation) {
-        compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
+    compiler.plugin('compilation', function (compilation) {
+        compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
             hotMiddleware.publish({action: 'reload'})
             cb()
         })
@@ -40,7 +41,7 @@ app.configureWebpackMiddleware = function(webpackConfig) {
 // https://github.com/chimurai/http-proxy-middleware
 // proxy api requests
 let proxyMiddleware = require('http-proxy-middleware')
-Object.keys(config.server.proxyTable).forEach(function(context) {
+Object.keys(config.server.proxyTable).forEach(function (context) {
     let options = config.server.proxyTable[context]
     if (typeof options === 'string') {
         options = {target: options}
@@ -53,7 +54,10 @@ app.use(require('connect-history-api-fallback')())
 
 app.configureWebpackMiddleware(require('./config/webpack'))
 
-module.exports = app.listen(config.server.port, function(err) {
+// serve pure static assets
+app.use('/example', express.static('example'))
+
+module.exports = app.listen(config.server.port, function (err) {
     if (err) {
         console.log(err)
         return

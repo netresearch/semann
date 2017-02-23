@@ -28,7 +28,7 @@
             </div>
 
             <div v-if="item.type === 'radio'">
-                <div>{{item}}
+                <div>
                     <md-radio
                         v-model="item[value]"
                         name="standbol-chain"

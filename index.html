@@ -14,106 +14,262 @@
           crossorigin="anonymous" />
     <link rel="stylesheet"
           href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet"
+          href="//fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <!-- STYLE -->
     <style>
-        body, html {
+        body {
+            background-color: rgb(241, 242, 246);
+            font-family: "Roboto";
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow-y: hidden;
-        }
-
-        #page {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            right: 300px;
-            overflow: auto;
+            min-height: 100%;
         }
 
         #semannContainer {
-            position: absolute;
+            position: fixed;
+            background: #fff;
             right: 0;
             top: 0;
             bottom: 0;
-            width: 300px;
             max-width: 100%;
-            border-left: 1px solid #eee;
+        }
+        .jumbotron {
+            background-color: rgb(218, 218, 218);
+        }
+        .jumbotron h1 {
+            font-size: 5em;
         }
     </style>
 </head>
 <body>
-<div id="page">
-    <div class="container-fluid">
-        <h3 class="text-muted">Semann API Examples</h3>
-        <hr />
-        <p id="semannText">
-            Ulo The Hitchhiker's Guide to the Galaxy is a science fiction
-            comedy series created by Douglas Adams. Originally a radio comedy
-            broadcast on BBC Radio 4 in 1978, it was later adapted to other formats,
-            and over several years it gradually became an international multi-media
-            phenomenon. Adaptations have included stage shows, a "trilogy" of five
-            books published between 1979 and 1992, a sixth novel penned by Eoin
-            Colfer in 2009, a 1981 TV series, a 1984 computer game, and three series
-            of three-part comic book adaptations of the first three novels published
-            by DC Comics between 1993 and 1996. There were also two series of towels,
-            produced by Beer-Davies, that are considered by some fans to be an
-            "official version" of The Hitchhiker's Guide to the Galaxy, as they
-            include text from the first novel. A Hollywood-funded film version,
-            produced and filmed in the UK, was released in April 2005, and radio
-            adaptations of the third, fourth, and fifth novels were broadcast from
-            2004 to 2005.
-        </p>
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Semann - CKEditor example</h1>
+                <p>You can now try out your new editor version!</p>
+            </div>
+        </div>
     </div>
 </div>
-<div id="semannContainer"></div>
-<!-- built files will be auto injected -->
-<script type="application/javascript">
-    var enhancement,
-        semann = new Semann(
-            {
-                target: document.querySelector('#semannContainer'),
-                app: {
-                    config: {
-                        theme: {
-                            primary: 'blue'
+
+<main class="container">
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>Editor Iframe</h2>
+            <textarea title="editor" id="editor-normal" rows="15">
+                Ulo The Hitchhiker's Guide to the Galaxy is a science fiction
+                comedy series created by Douglas Adams. Originally a radio comedy
+                broadcast on BBC Radio 4 in 1978, it was later adapted to other formats,
+                and over several years it gradually became an international multi-media
+                phenomenon. Adaptations have included stage shows, a "trilogy" of five
+                books published between 1979 and 1992, a sixth novel penned by Eoin
+                Colfer in 2009, a 1981 TV series, a 1984 computer game, and three series
+                of three-part comic book adaptations of the first three novels published
+                by DC Comics between 1993 and 1996. There were also two series of towels,
+                produced by Beer-Davies, that are considered by some fans to be an
+                "official version" of The Hitchhiker's Guide to the Galaxy, as they
+                include text from the first novel. A Hollywood-funded film version,
+                produced and filmed in the UK, was released in April 2005, and radio
+                adaptations of the third, fourth, and fifth novels were broadcast from
+                2004 to 2005.
+            </textarea>
+        </div>
+    </div>
+    <footer class="row">
+        <div class="col-xs-9">
+            <ul id="footer" class="list-group"></ul>
+        </div>
+    </footer>
+    <div class="row">
+        <div class="col-xs-9">
+            <h2>Editor Inline</h2>
+            <div id="editor-inline" contenteditable="true" id="editor-inline">
+                <p>
+                    Ulo The Hitchhiker's Guide to the Galaxy is a science fiction
+                    comedy series created by Douglas Adams. Originally a radio comedy
+                    broadcast on BBC Radio 4 in 1978, it was later adapted to other formats,
+                    and over several years it gradually became an international multi-media
+                    phenomenon. Adaptations have included stage shows, a "trilogy" of five
+                    books published between 1979 and 1992, a sixth novel penned by Eoin
+                    Colfer in 2009, a 1981 TV series, a 1984 computer game, and three series
+                    of three-part comic book adaptations of the first three novels published
+                    by DC Comics between 1993 and 1996. There were also two series of towels,
+                    produced by Beer-Davies, that are considered by some fans to be an
+                    "official version" of The Hitchhiker's Guide to the Galaxy, as they
+                    include text from the first novel. A Hollywood-funded film version,
+                    produced and filmed in the UK, was released in April 2005, and radio
+                    adaptations of the third, fourth, and fifth novels were broadcast from
+                    2004 to 2005.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<aside id="semannContainer"></aside>
+
+<script>
+
+    CKEDITOR.plugins.addExternal('semann', '/example/plugins/ckeditor/plugins/semann/', 'plugin.js');
+
+    var editor         = [],
+        editorSettings = {
+            extraConfig: {
+                plugins: {
+                    semann: {
+                        endpoint: 'http://api.semann-project.eu/current/'
+                    }
+                }
+            },
+
+            // Load the timestamp plugin.
+            extraPlugins: 'semann',
+
+
+            // Rearrange toolbar groups and remove unnecessary plugins.
+            toolbarGroups: [
+                {name: 'clipboard', groups: ['clipboard', 'undo']},
+                {name: 'about'},
+                {name: 'insert'},
+                {name: 'other'}
+
+            ],
+            removeButtons: 'Underline,Subscript,Superscript',
+            format_tags: 'p;pre',
+            removeDialogTabs: 'image:advanced;link:advanced'
+        };
+
+    // Iframe version
+    editor['editor-normal'] = CKEDITOR.replace('editor-normal', editorSettings);
+
+    // Inline version of CKEditor
+    editor['editor-inline'] = CKEDITOR.inline('editor-inline', editorSettings);
+
+
+    /**
+     * Semann enhancer
+     */
+    document.semann = new Semann(
+        {
+            editorEvents: {
+                onLoad: true,
+                onChange: true,
+                onFocus: true
+            },
+            target: document.querySelector('#semannContainer'),
+            app: {
+                config: {
+                    theme: {
+                        primary: 'blue'
+                    },
+                    connectors: {
+                        dummy: {
+                            adapter: 'dummy',
+                            foo: 'bar',
+                            replace: 'dirk'
                         },
-                        connectors: {
-                            dummy: {
-                                adapter: 'dummy',
-                                foo: 'bar',
-                                replace: 'dirk'
-                            },
-                            stanbol: {
-                                adapter: 'stanbol',
-                                url: 'http://sobol.nr:9988',
-                                features: {
-                                    targets: {
-                                        rdfa: 'Content enhancement with rdfa',
-                                        sidebar: 'Sidebar',
-                                        footer: 'Footer'
-                                    },
-                                    chain: [
-                                        'dbpedia-disambiguation',
-                                        'dbpedia-fst-linking',
-                                        'dbpedia-proper-noun',
-                                        'dbpedia-spotlight',
-                                        'language'
-                                    ]
+                        stanbol: {
+                            adapter: 'stanbol',
+                            url: 'http://sobol.nr:9988',
+                            features: {
+                                targets: {
+                                    rdfa: 'Content enhancement with rdfa',
+                                    sidebar: 'Sidebar',
+                                    footer: 'Footer'
                                 },
-                            }
+                                chain: [
+                                    'dbpedia-disambiguation',
+                                    'dbpedia-fst-linking',
+                                    'dbpedia-proper-noun',
+                                    'dbpedia-spotlight',
+                                    'language'
+                                ]
+                            },
                         }
                     }
                 }
             }
-        )
-    enhancement = semann.enhance(document.querySelector('#semannText').innerText)
-    enhancement.done(
-        function (result) {
-            // console.log('ENHANCED', result)
         }
     )
+
+    /**
+     * Semann initialisation
+     */
+    window.onload = function () {
+        enhancement = document.semann.enhance(CKEDITOR.instances['editor-normal'].getData());
+        enhancement.done(
+            function (result) {
+                console.log('Enhancement done', result)
+            }
+        )
+        enhancement.update(
+            function (result) {
+                console.log('Update done', result)
+            }
+        )
+    }
+
+    /**
+     * Add enhancement to footer
+     *
+     * @param id      Identifier for the enhancements
+     * @param title   Entity title
+     * @param image   Entity image
+     * @param comment Entity comment
+     */
+    document.addFooter = function (id, title, image, comment) {
+        var document     = window.document,
+            parentFooter = document.getElementById('footer'),
+            li           = document.createElement('div'),
+            row          = document.createElement('div'),
+            img          = document.createElement('img'),
+            left         = document.createElement('div'),
+            body         = document.createElement('div'),
+            heading      = document.createElement('h4'),
+            content      = document.createElement('p');
+
+        li.setAttribute('class', 'list-group-item');
+        li.setAttribute('id', id);
+        row.setAttribute('class', 'row');
+        left.setAttribute('class', 'col-xs-3');
+        body.setAttribute('class', 'col-xs-9');
+        img.setAttribute('class', 'img-responsive');
+        img.setAttribute('src', image);
+        img.setAttribute('alt', title);
+        heading.appendChild(document.createTextNode(title));
+        content.appendChild(document.createTextNode(comment));
+
+        var teaser;
+        teaser = parentFooter
+            .appendChild(li)
+            .appendChild(row);
+
+        teaser
+            .appendChild(left)
+            .appendChild(img);
+
+        var bodyContainer = teaser
+            .appendChild(body);
+        bodyContainer
+            .appendChild(heading);
+        bodyContainer
+            .appendChild(content);
+    }
+
+    /**
+     * Remove enhancement from footer
+     *
+     * @param id
+     */
+    document.removeFooter = function (id) {
+        var element = document
+            .getElementById(id);
+        element.parentNode.removeChild(element);
+    }
+
 </script>
 </body>
 </html>
