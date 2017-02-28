@@ -56,7 +56,6 @@ class Semann {
                 emitter.on('enhancement-done', handler)
             },
             update: (handler) => {
-                console.log('UPDATE !!!!!', handler)
                 emitter.on('enhancement-update', handler)
             }
         }

@@ -13,7 +13,7 @@ module.exports = {
     },
     is: is,
     projectRoot: path.resolve(__dirname, '../../'),
-    assetsRoot: 'dist',
+    assetsRoot: 'docs',
     assetsSubDirectory: 'static',
     sourceMaps: {
         js: true,
@@ -22,7 +22,7 @@ module.exports = {
         // (https://github.com/webpack/css-loader#sourcemaps)
         // In our experience, they generally work as expected,
         // just be aware of this issue when enabling this option.
-        css: false
+        css: true
     },
 
     extractCss: !is.development,

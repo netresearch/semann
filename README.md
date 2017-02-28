@@ -1,8 +1,8 @@
 # semann
 
-![API documentation status](docs/api/badge.svg?raw=true "API documentation") 
-![App documentation status](docs/app/badge.svg?raw=true "App documentation") 
-![Shared documentation status](docs/shared/badge.svg?raw=true "Shared scripts documentation")
+![API documentation status](https://rawgit.com/netresearch/semann/master/docs/api/badge.svg "API documentation") 
+![App documentation status](https://rawgit.com/netresearch/semann/master/docs/app/badge.svg "App documentation") 
+![Shared documentation status](https://rawgit.com/netresearch/semann/master/docs/shared/badge.svg "Shared scripts documentation")
 
 > Enhance your content with semantic information. A Vue.js project
 
