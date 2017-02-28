@@ -1,8 +1,8 @@
 # semann
 
-![alt text](docs/api/badge.svg "API documentation") 
-![alt text](docs/app/badge.svg "App documentation") 
-![alt text](docs/shared/badge.svg "Shared scripts documentation")
+![API documentation status](docs/api/badge.svg?raw=true "API documentation") 
+![App documentation status](docs/app/badge.svg?raw=true "App documentation") 
+![Shared documentation status](docs/shared/badge.svg?raw=true "Shared scripts documentation")
 
 > Enhance your content with semantic information. A Vue.js project
 
