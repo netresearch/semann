@@ -2,9 +2,70 @@
 
 ![alt text](docs/api/badge.svg "API documentation") ![alt text](docs/app/badge.svg "App documentation1") ![alt text](docs/shared/badge.svg "Shared scripts documentation")
 
-> A Vue.js project
+> Enhance your content with semantic information. A Vue.js project
 
-## Build Setup
+## Usage
+
+You can use semann with any WYSIWYG editor to enhance your content.
+We already implement an example for the CKEditor, but there is no
+limitation to that.
+
+Before you can start to initialize semann in your application, you need
+to start an enhancer service. Currently we support Stanbol. We have
+prepared a Docker-Compose file to make it as easy as possible for you.
+You can grab on our [semann-adapter](https://github.com/netresearch/semann-adapters) repository.
+
+If your done, you are ready to initialize semann in your backend/CMD/CRS etc.
+Here is an example initialisation.
+
+ ### Configuration
+ 
+ ``` javascript
+ new Semann(
+     {
+         target: document.querySelector('#semannContainer'),
+         app: {
+             config: {
+                 connectors: {
+                     stanbol: {
+                         adapter: 'stanbol',
+                         url: 'https://your-adapters.io:9988',
+                         features: {
+                             chain: [
+                                 'dbpedia-disambiguation',
+                                 'dbpedia-fst-linking',
+                                 'dbpedia-proper-noun',
+                                 'dbpedia-spotlight',
+                                 'language'
+                             ]
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ )
+ ```
+ 
+- ``target``: Your editable content area
+- ``connectors``: Your enhancer
+- ``chain``: Enable/Disable Stanbol chains
+
+
+## Contribute
+
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
+
+### Issues
+
+Please report issues to [ticket system](https://github.com/netresearch/semann/issues). 
+Pull requests are welcome here!
+
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -25,5 +86,3 @@ npm run e2e
 # run all tests
 npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
