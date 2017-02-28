@@ -71,9 +71,15 @@ jspm_packages
 .directory
 .Trash-*
 .nfs*
-docs/*
+/docs/*
+/docs/api/*
+/docs/app/*
+/docs/shared/*
 !docs/index.html
 !docs/*.md
+!docs/api/
 !docs/api/badge.svg
+!docs/app/
 !docs/app/badge.svg
+!docs/shared/
 !docs/shared/badge.svg
