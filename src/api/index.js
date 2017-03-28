@@ -26,7 +26,7 @@ class Semann {
         this.options = extend(true, {
             distUrl: distUrl,
             app: {
-                src: distUrl + '/app.html',
+                src: distUrl + './app.html',
                 target: options.target,
                 config: {}
             }
