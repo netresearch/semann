@@ -1,0 +1,42 @@
+@import "variables";
+
+.semann-widget {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-size: 12px;
+  border: 1px solid rgba($tone, 0.16);
+  border-radius: 4px;
+  > header {
+    background: rgba($tone, 0.16);
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: center;
+    h3 {
+      margin: $gutter !important;
+      text-transform: capitalize;
+      font-weight: normal;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .el-button--text:last-child {
+      margin-right: $gutter;
+    }
+    .el-button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  .semann-analysis-start {
+    padding: $gutter;
+    text-align: center;
+    p {
+      color: rgba($tone, 0.86);
+      padding: $gutter;
+      margin: 0;
+    }
+    button {
+      margin-bottom: $gutter;
+    }
+  }
+}

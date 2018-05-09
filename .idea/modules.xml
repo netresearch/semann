@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/LEDS  - semann.iml" filepath="$PROJECT_DIR$/.idea/LEDS  - semann.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../semann-adapters/ala/.idea/LEDS - semann - adapters.iml" filepath="$PROJECT_DIR$/../../semann-adapters/ala/.idea/LEDS - semann - adapters.iml" />
-    </modules>
-  </component>
-</project>

@@ -1,0 +1,55 @@
+@import "variables";
+
+.semann-result {
+  .semann-result-head {
+    cursor: pointer;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    $img: 36px;
+    $img-padding: 2px;
+    height: $img-padding*2 + $img;
+    &:hover, &.semann-active {
+      background: rgba($tone, 0.04);
+    }
+    .semann-result-label {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+      padding-left: $gutter;
+    }
+    .semann-result-image {
+      width: $img;
+      height: $img;
+      background: center no-repeat;
+      background-size: auto 100%;
+      position: relative;
+      margin: $img-padding;
+      &:before {
+        display: block;
+        position: absolute;
+        content: " ";
+        left: -$img-padding;
+        top: -$img-padding;
+        right: -$img-padding;
+        bottom: -$img-padding;
+        background: rgba($tone, 0.08);
+        z-index: -1;
+      }
+    }
+  }
+  .semann-result-body {
+    p {
+      padding: 0 10px;
+    }
+    border-top: 2px solid rgba($tone, 0.16);
+    .semann-annotations {
+      border-top: 1px solid rgba($tone, 0.16);
+      background: rgba($tone, 0.08);
+    }
+  }
+  & + & {
+    border-top: 1px solid rgba($tone, 0.16);
+  }
+}
