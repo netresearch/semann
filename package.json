@@ -33,7 +33,7 @@
   "dependencies": {
     "events": "^1.1.1",
     "extend": "^3.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.1",
     "sass-loader": "^4.0.2",
     "vue": "^2.0.1",
     "vue-i18n": "^4.7.4",
