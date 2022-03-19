@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "events": "^1.1.1",
+    "events": "^3.3.0",
     "extend": "^3.0.0",
     "node-sass": "^7.0.1",
     "sass-loader": "^4.0.2",
