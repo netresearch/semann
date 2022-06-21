@@ -12,3 +12,6 @@ patch:
   'npm:ms:20170412':
     - karma > socket.io > socket.io-adapter > socket.io-parser > debug > ms:
         patched: '2022-06-21T06:46:06.033Z'
+  'npm:marked:20170907':
+    - grunt-esdoc > esdoc > marked:
+        patched: '2022-06-21T13:46:21.684Z'
