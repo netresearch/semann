@@ -55,7 +55,7 @@
     "babel-register": "^6.0.0",
     "chai": "^3.5.0",
     "chalk": "^2.0.0",
-    "chromedriver": "^2.21.2",
+    "chromedriver": "^101.0.0",
     "connect-history-api-fallback": "^1.1.0",
     "cross-spawn": "^4.0.2",
     "css-loader": "^2.0.0",
