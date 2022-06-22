@@ -99,7 +99,7 @@
     "selenium-server": "2.53.1",
     "semver": "^5.3.0",
     "shelljs": "^0.8.5",
-    "sinon": "^1.17.3",
+    "sinon": "^14.0.0",
     "sinon-chai": "^2.8.0",
     "time-grunt": "^1.4.0",
     "url-loader": "^1.0.0",
