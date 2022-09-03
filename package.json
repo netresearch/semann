@@ -57,7 +57,7 @@
     "chalk": "^5.0.1",
     "chromedriver": "^104.0.0",
     "connect-history-api-fallback": "^1.1.0",
-    "cross-spawn": "^4.0.2",
+    "cross-spawn": "^7.0.3",
     "css-loader": "^2.0.0",
     "eslint": "^8.21.0",
     "eslint-config-standard": "^17.0.0",
