@@ -77,7 +77,7 @@
     "grunt-eslint": "^23.0.0",
     "html-webpack-plugin": "^5.5.0",
     "http-proxy-middleware": "^2.0.6",
-    "inject-loader": "^2.0.1",
+    "inject-loader": "^4.0.1",
     "isparta-loader": "^2.0.0",
     "jit-grunt": "^0.10.0",
     "json-loader": "^0.5.4",
